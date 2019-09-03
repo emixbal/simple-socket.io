@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+
+    <script>
+        var socket = io('http://localhost:3030/');
+        var DataChatKirim = {};
+        var id = 3
+        var to = 2
+
+        $(document).ready(function () {
+            $('#kirim').on('click', function () {
+                DataChatKirim.nama = $('#nama').val();
+                DataChatKirim.pesan = $('#pesan').val();
+
+                socket.emit(`chatpesan:${to}`, DataChatKirim);
+                $('#nama').val('');
+                $('#pesan').val('');
+            });
+        });
+
+        socket.on(`chatpesan:${id}`, function (DataChat) {
+            if (DataChatKirim.nama === DataChat.nama) {
+                $('#listPesan').prepend($('<li class="list-group-item text-right">').text(DataChat.nama + ' : ' + DataChat.pesan));
+            } else {
+                $('#listPesan').prepend($('<li class="list-group-item text-left">').text(DataChat.nama + ' : ' + DataChat.pesan));
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Chat kita</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="list-group" id="listPesan">
+                </ul>
+            </div>
+        </div>
+        <form action="p">
+            <div class="form-group">
+                <label for="email">Pesan:</label>
+                <textarea type="email" class="form-control" id="pesan" placeholder="Masukkan pesan"
+                    name="pesan"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="text">Name:</label>
+                <input type="text" class="form-control" id="nama" placeholder="Enter email" name="nama">
+            </div>
+            <button type="button" id="kirim" class="btn btn-default">Send</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
