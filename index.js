@@ -10,6 +10,15 @@ app.get('/', function (req, res) {
     return res.send('root endpoint');
 });
 
+app.post('send_message', function(req, res){
+    const {pesan, no_hp} = req.body
+    const data = {
+        "pesan":pesan,
+        "no_hp":no_hp
+    }
+    io.emit(`chatpesan:${pesan.to}`, pesan);
+})
+
 io.on('connection', function (socket) {
     socket.on('chatpesan', function (pesan) {
         console.log(pesan);
