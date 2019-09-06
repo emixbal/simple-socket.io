@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 
     <script>
-        var socket = io('http://localhost:3030/');
+        var socket = io('https://sms-project-socket.herokuapp.com/');
         var DataChatKirim = {};
         var id = 1
         var to = 2
@@ -19,6 +19,7 @@
         $(document).ready(function () {
             $('#kirim').on('click', function () {
                 DataChatKirim.nama = $('#nama').val();
+                DataChatKirim.nomer = $('#nomer').val();
                 DataChatKirim.pesan = $('#pesan').val();
                 DataChatKirim.id = id
                 DataChatKirim.to = to
@@ -52,12 +53,16 @@
         <form action="p">
             <div class="form-group">
                 <label for="email">Pesan:</label>
-                <textarea type="email" class="form-control" id="pesan" placeholder="Masukkan pesan"
+                <textarea type="text" class="form-control" id="pesan" placeholder="Masukkan pesan"
                     name="pesan"></textarea>
             </div>
             <div class="form-group">
+                <label for="text">Nomer:</label>
+                <input type="text" class="form-control" id="nomer" placeholder="Enter nomer" name="nomer">
+            </div>
+            <div class="form-group">
                 <label for="text">Name:</label>
-                <input type="text" class="form-control" id="nama" placeholder="Enter email" name="nama">
+                <input type="text" class="form-control" id="nama" placeholder="Enter Pesan" name="nama">
             </div>
             <button type="button" id="kirim" class="btn btn-default">Send</button>
         </form>
