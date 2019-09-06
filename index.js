@@ -21,11 +21,15 @@ app.post('/send_message', function(req, res){
     const data = {
         "pesan":pesan,
         "no_hp":no_hp
-    }   
-    // io.emit(`chatpesan:2`, pesan);
+    }
     io.on('connection', function (socket) {
-        io.emit(`chatpesan:2`, pesan);
+        io.emit(`chatpesan:2`, data);
     });
+})
+
+app.post("/foo", function(req, res, next) {
+    io.emit("foo", req.body);
+    res.send({"hallo":"hallo"});
 })
 
 io.on('connection', function (socket) {
