@@ -22,7 +22,10 @@ app.post('/send_message', function(req, res){
         "pesan":pesan,
         "no_hp":no_hp
     }   
-    io.emit(`chatpesan:2`, pesan);
+    // io.emit(`chatpesan:2`, pesan);
+    io.on('connection', function (socket) {
+        io.emit(`chatpesan:2`, pesan);
+    });
 })
 
 io.on('connection', function (socket) {
