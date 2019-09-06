@@ -25,6 +25,7 @@ app.post('/send_message', function(req, res){
     io.on('connection', function (socket) {
         io.emit(`chatpesan:2`, data);
     });
+    res.send({"hallo":"hallo"});
 })
 
 app.post("/foo", function(req, res, next) {
