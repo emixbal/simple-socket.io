@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json())
 
+
+// ensure token middleware
 function ensureToken(req, res, next) {
   var bearerHeader = req.headers['authorization']
   if (typeof bearerHeader=='undefined'){
@@ -60,9 +62,6 @@ app.post('/send_message', ensureToken, function(req, res, next){
         "phone_number":req.body.phone_number
     }
 
-    // io.on('connection', function (socket) {
-    //     io.emit(`sendsms:${user.id}`, data);
-    // });
     io.emit(`sendsms:${userData.id}`, data);
 
     return res.send({"message":"ok"});
@@ -73,13 +72,6 @@ app.post("/foo", function(req, res, next) {
     io.emit("foo", req.body);
     res.send({"hallo":"hallo"});
 })
-
-// io.on('connection', function (socket) {
-//     socket.on('chatpesan', function (pesan) {
-//         console.log(pesan);
-//         io.emit(`chatpesan:${pesan.to}`, pesan);
-//     });
-// });
 
 http.listen(app.get('port'), function () {
     console.log('Server jalan di port ' + app.get('port'));

@@ -13,8 +13,8 @@
     <script>
         var socket = io('https://sms-project-socket.herokuapp.com/');
         var DataChatKirim = {};
-        var id = 1
-        var to = 2
+        var id = '21937334-3052-41a0-bc04-ab94a6e9446e';
+        var to = 2;
 
         $(document).ready(function () {
             $('#kirim').on('click', function () {
@@ -30,12 +30,13 @@
             });
         });
 
-        socket.on(`chatpesan:${id}`, function (DataChat) {
-            if (DataChatKirim.nama === DataChat.nama) {
-                $('#listPesan').prepend($('<li class="list-group-item text-right">').text(DataChat.nama + ' : ' + DataChat.pesan));
-            } else {
-                $('#listPesan').prepend($('<li class="list-group-item text-left">').text(DataChat.nama + ' : ' + DataChat.pesan));
-            }
+        socket.on(`sendsms:${id}`, function (DataChat) {
+            alert(JSON.stringify(DataChat));
+            // if (DataChatKirim.nama === DataChat.nama) {
+            //     $('#listPesan').prepend($('<li class="list-group-item text-right">').text(DataChat.nama + ' : ' + DataChat.pesan));
+            // } else {
+            //     $('#listPesan').prepend($('<li class="list-group-item text-left">').text(DataChat.nama + ' : ' + DataChat.pesan));
+            // }
         });
     </script>
 </head>

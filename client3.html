@@ -13,7 +13,7 @@
     <script>
         var socket = io('http://localhost:3030/');
         var DataChatKirim = {};
-        var id = 3
+        var id = '6a38122a-bc0a-4f57-8e90-7e99f5fd8a0f'
         var to = 2
 
         $(document).ready(function () {
@@ -27,12 +27,8 @@
             });
         });
 
-        socket.on(`chatpesan:${id}`, function (DataChat) {
-            if (DataChatKirim.nama === DataChat.nama) {
-                $('#listPesan').prepend($('<li class="list-group-item text-right">').text(DataChat.nama + ' : ' + DataChat.pesan));
-            } else {
-                $('#listPesan').prepend($('<li class="list-group-item text-left">').text(DataChat.nama + ' : ' + DataChat.pesan));
-            }
+        socket.on(`sendsms:${id}`, function (DataMessage) {
+            alert(JSON.stringify(DataMessage))
         });
     </script>
 </head>
